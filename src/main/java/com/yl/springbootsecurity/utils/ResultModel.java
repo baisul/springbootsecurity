@@ -24,7 +24,6 @@ public class ResultModel implements Serializable {
      */
     private Object data;
 
-    private String jsonId;
 
     public ResultModel(Integer code) {
         this.code = code;
@@ -52,14 +51,6 @@ public class ResultModel implements Serializable {
         this.msg = msg;
         this.flag = flag;
         this.data = data;
-    }
-
-    public ResultModel(Integer code, String msg, Boolean flag, Object data,String jsonId) {
-        this.code = code;
-        this.msg = msg;
-        this.flag = flag;
-        this.data = data;
-        this.jsonId = jsonId;
     }
 
     public Integer getCode() {
@@ -94,14 +85,6 @@ public class ResultModel implements Serializable {
         this.flag = flag;
     }
 
-    public String getJsonId() {
-        return jsonId;
-    }
-
-    public void setJsonId(String jsonId) {
-        this.jsonId = jsonId;
-    }
-
     @Override
     public String toString() {
         return "ResultModel{" +
@@ -109,7 +92,6 @@ public class ResultModel implements Serializable {
                 ", msg='" + msg + '\'' +
                 ", flag=" + flag +
                 ", data=" + data +
-                ", jsonId='" + jsonId + '\'' +
                 '}';
     }
 }

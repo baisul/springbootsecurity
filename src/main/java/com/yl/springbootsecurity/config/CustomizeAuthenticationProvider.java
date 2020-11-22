@@ -2,6 +2,7 @@ package com.yl.springbootsecurity.config;
 import com.yl.springbootsecurity.entity.Permission;
 import com.yl.springbootsecurity.service.PermissionService;
 import com.yl.springbootsecurity.service.UserService;
+import com.yl.springbootsecurity.utils.Md5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -21,7 +22,7 @@ import java.util.List;
 
 
 /**
- * 自定义认证提供者
+ * 自定义认证提供者，对用户名和密码进行验证
  * @author Administrator
  */
 @Service
@@ -57,8 +58,9 @@ public class CustomizeAuthenticationProvider implements AuthenticationProvider{
             userDetails = new User(username, user.getPassword(), authorities);
             if (authentication.getCredentials() == null) {
                 throw new BadCredentialsException("登录名或密码错误");
-            } else if (!prepassword.equals(user.getPassword())) {
-                throw new BadCredentialsException("登录名或密码错误");
+                //获取前端的密码，经过解密之后和数据库保存的密码比较是否一致
+            } else if (!Md5Util.encode(prepassword).equals(user.getPassword())) {
+                throw new BadCredentialsException("密码错误");
             }
                 //返回UsernamePasswordAuthenticationToken对象
                 UsernamePasswordAuthenticationToken result = new UsernamePasswordAuthenticationToken(userDetails, authentication.getCredentials(), userDetails.getAuthorities());

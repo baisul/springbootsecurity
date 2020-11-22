@@ -23,19 +23,16 @@ public class CustomizeAccessDecisionManager implements AccessDecisionManager {
             ConfigAttribute ca = iterator.next();
             //当前请求需要的权限
             String needRole = ca.getAttribute();
-            System.out.println("当前请求需要的权限："+needRole);
             //当前用户所具有的权限
-            System.out.println(authentication.getName());
             Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-            for (GrantedAuthority authority:authorities) {
-                System.out.println("当前用户拥有的权限：" + authority);
-            }
+           //如果当前用户拥有当前请求的权限则放行
             for (GrantedAuthority authority : authorities) {
                 if (authority.getAuthority().equals(needRole)) {
                     return;
                 }
             }
         }
+        //没有权限则抛异常
         throw new AccessDeniedException("权限不足!");
     }
 

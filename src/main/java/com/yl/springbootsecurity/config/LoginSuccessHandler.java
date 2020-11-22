@@ -46,10 +46,8 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 		User user = (User)authentication.getPrincipal();
 		//这里可以做一些逻辑处理，比如，要返回这个用户的菜单权限到前端，前端拿到后，动态加载显示
 
-		String id = request.getSession().getId();
-		System.out.println(id);
 		//返回数据
-		ResultModel resultModel = new ResultModel(Constant.SUCCESS_CODE,"查找成功",Constant.OPERATE_SUCCESS,user,id);
+		ResultModel resultModel = new ResultModel(Constant.SUCCESS_CODE,"查找成功",Constant.OPERATE_SUCCESS,user);
 
 		//以流的方式写数据到前端
 		response.getWriter().write(JSON.toJSONString(resultModel));

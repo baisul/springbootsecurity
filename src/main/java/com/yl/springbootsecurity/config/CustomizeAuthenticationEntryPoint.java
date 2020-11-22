@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * 匿名用户访问无权限时的异常
+ * 匿名用户访问无权限时的异常入口
  */
 
 @Component

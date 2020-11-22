@@ -31,20 +31,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private CustomizeAuthenticationProvider customizeAuthenticationProvider;
 
-//	@Autowired
-//	private UserDetailsService userDetailsService;
-
-	//注入认证管理器，使用默认的
+	//注入认证管理器
 	@Override
 	@Bean
 	protected AuthenticationManager authenticationManager() throws Exception {
 		return super.authenticationManager();
-	}
-
-	//加密解密用到
-	@Bean
-	public PasswordEncoder getPasswordEncoderBean() {
-		return new BCryptPasswordEncoder();
 	}
 
 	//注入登录成功的处理器
@@ -142,8 +133,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		//2.配置认证方式
-		//从数据库查该用户拥有的权限
-//		auth.userDetailsService(userDetailsService);
+		//使用自定义的认证管理器
 		auth.authenticationProvider(this.customizeAuthenticationProvider);
 	}
 
